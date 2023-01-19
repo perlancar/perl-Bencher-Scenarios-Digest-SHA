@@ -1,12 +1,14 @@
-package Bencher::Scenario::DigestSHA::SHA512;
-
-# DATE
-# VERSION
+package Bencher::Scenario::Digest::SHA::SHA1;
 
 use 5.010001;
 use strict;
 use warnings;
 use Log::ger;
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 sub _create_file {
     my ($size) = @_;
@@ -21,23 +23,23 @@ sub _create_file {
 }
 
 our $scenario = {
-    summary => 'Benchmark Digest::SHA against sha512sum',
+    summary => 'Benchmark Digest::SHA against sha1sum',
     participants => [
         {
-            name   => 'sha512sum',
+            name   => 'sha1sum',
             modules => ['String::ShellQuote'],
-            code_template => 'my $cmd = "sha512sum ".String::ShellQuote::shell_quote(<filename>); my $res = `$cmd`; $res =~ s/\s.+//s; $res',
+            code_template => 'my $cmd = "sha1sum ".String::ShellQuote::shell_quote(<filename>); my $res = `$cmd`; $res =~ s/\s.+//s; $res',
         },
         {
             name   => 'Digest::SHA',
             module => 'Digest::SHA',
-            code_template => 'my $ctx = Digest::SHA->new(512); open my $fh, "<", <filename>; $ctx->addfile($fh); $ctx->hexdigest',
+            code_template => 'my $ctx = Digest::SHA->new(1); open my $fh, "<", <filename>; $ctx->addfile($fh); $ctx->hexdigest',
         },
     ],
     precision => 6,
 
     datasets => [
-        {name=>'30M_file', _size=>30*1024*1024, args=>{filename=>undef}, result=>'5422caad13dfa4441aa9f8463ae576120782f8a6a0c83418172b3f80cf31f4ff53fe436dc05663d6e6e20a8e936427920ba68ed07d5555964c76bac9ab0a8c8e'},
+        {name=>'30M_file', _size=>30*1024*1024, args=>{filename=>undef}, result=>'cb5c810c8b3c29b8941f8d2ce9d281220b5d1552'},
     ],
 
     before_gen_items => sub {

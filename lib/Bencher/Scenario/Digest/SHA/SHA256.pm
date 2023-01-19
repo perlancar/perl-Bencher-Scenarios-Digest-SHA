@@ -1,12 +1,14 @@
-package Bencher::Scenario::DigestSHA::SHA256;
-
-# DATE
-# VERSION
+package Bencher::Scenario::Digest::SHA::SHA256;
 
 use 5.010001;
 use strict;
 use warnings;
 use Log::ger;
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 sub _create_file {
     my ($size) = @_;
